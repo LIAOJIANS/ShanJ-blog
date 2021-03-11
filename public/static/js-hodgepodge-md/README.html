@@ -1,0 +1,1131 @@
+<html>
+  <head>
+	  <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+    <title>i5ting_ztree_toc:README</title>
+		<link href="toc/style/github-bf51422f4bb36427d391e4b75a1daa083c2d840e.css" media="all" rel="stylesheet" type="text/css"/>
+		<link href="toc/style/github2-d731afd4f624c99a4b19ad69f3083cd6d02b81d5.css" media="all" rel="stylesheet" type="text/css"/>
+    <link href="https://cdn.bootcdn.net/ajax/libs/zTree.v3/3.5.01/css/zTreeStyle/zTreeStyle.css" rel="stylesheet">
+	  <style>
+		pre {
+		    counter-reset: line-numbering;
+		    border: solid 1px #d9d9d9;
+		    border-radius: 0;
+		    background: #fff;
+		    padding: 0;
+		    line-height: 23px;
+		    margin-bottom: 30px;
+		    white-space: pre;
+		    overflow-x: auto;
+		    word-break: inherit;
+		    word-wrap: inherit;
+		}
+
+		pre a::before {
+		  content: counter(line-numbering);
+		  counter-increment: line-numbering;
+		  padding-right: 1em; /* space after numbers */
+		  width: 25px;
+		  text-align: right;
+		  opacity: 0.7;
+		  display: inline-block;
+		  color: #aaa;
+		  background: #eee;
+		  margin-right: 16px;
+		  padding: 2px 10px;
+		  font-size: 13px;
+		  -webkit-touch-callout: none;
+		  -webkit-user-select: none;
+		  -khtml-user-select: none;
+		  -moz-user-select: none;
+		  -ms-user-select: none;
+		  user-select: none;
+		}
+
+		pre a:first-of-type::before {
+		  padding-top: 10px;
+		}
+
+		pre a:last-of-type::before {
+		  padding-bottom: 10px;
+		}
+
+		pre a:only-of-type::before {
+		  padding: 10px;
+		}
+
+		.highlight { background-color: #ffffcc } /* RIGHT */
+		</style>
+  </head>
+  <body>
+	  <div>
+				<div style='width:25%;'>
+						<ul id="tree" class="ztree" style='width:100%'>
+
+						</ul>
+				</div>
+        <div id='readme' style='width:70%;margin-left:20%;'>
+          	<article class='markdown-body'>
+				<h1 id="js-hodgepodge-js-">js-hodgepodge 一个全面的JS工具库</h1>
+				<p>GitHub地址：<a href="https://github.com/LIAOJIANS/js-hodgepodge">https://github.com/LIAOJIANS/js-hodgepodge</a></p>
+				<p>Npm地址：<a href="https://www.npmjs.com/package/js-hodgepodge">https://www.npmjs.com/package/js-hodgepodge</a></p>
+<h1 id="-">安装</h1>
+<p><strong>使用npm命令安装</strong></p>
+<p><code>npm i js-hodgepodge -S</code></p>
+<p><strong>全局引入</strong>
+<code>import * as hodgepodge from &#39;js-hodgepodge&#39;</code></p>
+<p>具体调用</p>
+<pre><code>console.log(hodgepodge.time) // 查看time模块上所有API
+console.log(hodgepodge.tools) // 查看tools上所有API
+console.log(hodgepodge.cache) // 查看cache上所有API
+console.log(hodgepodge.check) // 查看check上所有API
+</code></pre><p>目前只上线了四大板块，后续会维护更新</p>
+<p><strong>按需引入</strong></p>
+<h1 id="time-">Time模块</h1>
+<p>这是一个包含大部分开发需要用到的时间模块，包括时间格式，引入如下：</p>
+<p><code>import { time } from &#39;js-hodgepodge&#39;</code></p>
+<h3 id="api-">API介绍</h3>
+<h3 id="gethoroscope-">getHoroscope()</h3>
+<p>计算星座，传入时间戳返回对应的星座</p>
+<table>
+<thead>
+<tr>
+<th>param</th>
+<th>required</th>
+<th>type</th>
+<th>describe</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>date</td>
+<td>true</td>
+<td>Number</td>
+<td>时间戳</td>
+</tr>
+</tbody>
+</table>
+<p><strong>示例:</strong></p>
+<pre><code>let textData: number = new Date().getTime()
+console.log(time.getHoroscope(textData)) // 双子座
+</code></pre><h3 id="timedifference-">timeDifference()</h3>
+<p>计算时间差,传入时间配置对象</p>
+<table>
+<thead>
+<tr>
+<th>param</th>
+<th>required</th>
+<th>type</th>
+<th>describe</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>isTimestamp</td>
+<td>true</td>
+<td>boolean</td>
+<td>是否传时间戳(true/false)</td>
+</tr>
+<tr>
+<td>startTime</td>
+<td>true</td>
+<td>number / string</td>
+<td>时间戳或者是时间格式</td>
+</tr>
+<tr>
+<td>type</td>
+<td>false</td>
+<td>string</td>
+<td>返回类型（day、hours、minutes、seconds、HoursMinutes、HoursMinutesSeconds、timeHours、timeHoursMinutes）</td>
+</tr>
+<tr>
+<td>endTime</td>
+<td>false</td>
+<td>number / string</td>
+<td>不传的话默认当前时间</td>
+</tr>
+</tbody>
+</table>
+<p><strong>示例:</strong></p>
+<pre><code>console.log(&#39;时间差&#39; + time.timeDifference({
+isTimestamp: false,
+type: &#39;day&#39;,
+startTime: &#39;2020/6/25 13:26:40&#39;,
+endTime: &#39;2020/5/25 13:26:40&#39;
+})) // 时间差31天
+</code></pre><h3 id="getchattime-">getChatTime()</h3>
+<p>计算相差X秒内的信息会不会显示时间，用于显示聊天消息时间居多，传入时间配置对象</p>
+<table>
+<thead>
+<tr>
+<th>param</th>
+<th>required</th>
+<th>type</th>
+<th>describe</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>oTime</td>
+<td>true</td>
+<td>number</td>
+<td>起始时间，传时间戳</td>
+</tr>
+<tr>
+<td>nTime</td>
+<td>true</td>
+<td>number</td>
+<td>结束时间，时间戳</td>
+</tr>
+<tr>
+<td>differ</td>
+<td>true</td>
+<td>number</td>
+<td>开始，结束时间相差间隔</td>
+</tr>
+</tbody>
+</table>
+<p><strong>示例:</strong></p>
+<pre><code>console.log(time.getChatTime({
+oTime: 1587360400,
+nTime: 1589963293,
+differ: 300
+})) // 2020-05-20 下午 4:28
+</code></pre><h3 id="gettime-">getTime()</h3>
+<p>传入一个时间，与当前时间进行比较，比如当天下午6点40分，则显示下午6:40，用于显示显示发布时间、聊天时间居多，传入时间戳</p>
+<table>
+<thead>
+<tr>
+<th>param</th>
+<th>required</th>
+<th>type</th>
+<th>describe</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>data</td>
+<td>true</td>
+<td>number</td>
+<td>传入时间戳</td>
+</tr>
+<tr>
+<td>isDisplay</td>
+<td>false</td>
+<td>boolean</td>
+<td>是否显示完整时间，不传默认为false</td>
+</tr>
+</tbody>
+</table>
+<p><strong>示例:</strong></p>
+<pre><code>console.log(time.getTime(1587360400)) // 2020-04-20 下午 1:26
+console.log(time.getTime(new Date().getTime())) // 下午 6:40
+console.log(time.getTime(new Date().getTime()， true)) // 2020-06-03 上午 10:41
+</code></pre><h3 id="dateformat-">dateFormat()</h3>
+<p>格式化时间,可自定义格式，传入一个配置对象</p>
+<table>
+<thead>
+<tr>
+<th>param</th>
+<th>required</th>
+<th>type</th>
+<th>describe</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>time</td>
+<td>true</td>
+<td>number</td>
+<td>需要转换格式的时间戳</td>
+</tr>
+<tr>
+<td>formatStr</td>
+<td>false</td>
+<td>string</td>
+<td>自定义时间格式，不传则显示默认格式：{Y}-{MM}-{DD} {A} {t}:{ii}</td>
+</tr>
+</tbody>
+</table>
+<p><strong>转换格式表</strong></p>
+<table>
+<thead>
+<tr>
+<th>param</th>
+<th>describe</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Y</td>
+<td>年</td>
+</tr>
+<tr>
+<td>M</td>
+<td>不补0的月</td>
+</tr>
+<tr>
+<td>MM</td>
+<td>补0的月</td>
+</tr>
+<tr>
+<td>Mon</td>
+<td>大写月</td>
+</tr>
+<tr>
+<td>D</td>
+<td>不补0的日</td>
+</tr>
+<tr>
+<td>DD</td>
+<td>补0的日</td>
+</tr>
+<tr>
+<td>h</td>
+<td>不补0的小时</td>
+</tr>
+<tr>
+<td>hh</td>
+<td>补0的小时</td>
+</tr>
+<tr>
+<td>A</td>
+<td>显示上午下午</td>
+</tr>
+<tr>
+<td>i</td>
+<td>补0的分钟</td>
+</tr>
+<tr>
+<td>ii</td>
+<td>不补0的分钟</td>
+</tr>
+<tr>
+<td>s</td>
+<td>补0的秒钟</td>
+</tr>
+<tr>
+<td>ss</td>
+<td>不补0的秒钟</td>
+</tr>
+</tbody>
+</table>
+<p><strong>示例:</strong>
+可以自定义格式： 如 {t}:{ii}</p>
+<pre><code>console.log(&#39;当前时间格式化&#39; + time.dateFormat({
+time: new Date().getTime(),
+formatStr: &#39;{t}:{ii}&#39;
+})) // 当前时间格式化9:45
+// 不传
+console.log(&#39;当前时间格式化&#39; + time.dateFormat({
+time: new Date().getTime()
+})) // 当前时间格式化2020-06-03 上午 9:46
+</code></pre><h3 id="getlastdayofmonth-">getLastDayOfMonth()</h3>
+<p>获取本月的最后一天</p>
+<p><strong>示例:</strong>
+可以自定义格式： 如 {t}:{ii}</p>
+<pre><code>console.log(&#39;month&#39; + time.getLastDayOfMonth()) // month30
+</code></pre><h3 id="getfirstdayofseason-">getFirstDayOfSeason()</h3>
+<p>获取这个季度的第一天</p>
+<p><strong>示例:</strong></p>
+<p><code>console.log(&#39;季度第一天&#39; + time.getFirstDayOfSeason()) // 季度第一天2020-04-01</code></p>
+<h3 id="getweek-">getWeek()</h3>
+<p>获取当天是周几</p>
+<p><strong>示例:</strong></p>
+<p><code>console.log(&#39;周&#39; + time.getWeek()) // 周三</code></p>
+<h3 id="getyearday-">getYearDay()</h3>
+<p>获取今天是当年的第几天</p>
+<p><strong>示例:</strong></p>
+<p><code>console.log(&#39;今天是今年的第&#39; + time.getYearDay() + &#39;天&#39;) // 今天是今年的第155天</code></p>
+<h3 id="getyearweek-">getYearWeek()</h3>
+<p>获取今天是当年的第几周</p>
+<p><strong>示例:</strong></p>
+<p><code>console.log(&#39;今天是今年的第&#39; + time.getYearWeek() + &#39;周&#39;) // 今天是今年的第23周</code></p>
+<h3 id="lastday-">lastDay()</h3>
+<p>获取今年还剩下多少时间</p>
+<p><strong>示例:</strong></p>
+<p><code>console.log(&#39;今年还剩下&#39;+ time.lastDay() +&#39;天&#39; ) // 今年还剩下211天</code></p>
+<h3 id="getdate-">getDate()</h3>
+<p>获取N天后的日期</p>
+<table>
+<thead>
+<tr>
+<th>param</th>
+<th>required</th>
+<th>type</th>
+<th>describe</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>time</td>
+<td>true</td>
+<td>number / Date</td>
+<td>起始时间,可以为时间戳，可以为new出来的时间格式</td>
+</tr>
+<tr>
+<td>count</td>
+<td>true</td>
+<td>number</td>
+<td>几天后的区间，可为负数</td>
+</tr>
+</tbody>
+</table>
+<p><strong>示例:</strong></p>
+<pre><code>console.log(&#39;获取N天后的日期&#39; + time.getDate(new Date(), 7)) // 获取N天后的日期2020-06-10 10:16:51
+console.log(&#39;获取N天后的日期&#39; + time.getDate(new Date().getTime(), 7)) // 获取N天后的日期2020-06-10 10:16:51
+</code></pre><h3 id="getweekcycle-">getWeekCycle()</h3>
+<p>计算当周开始和结束时间</p>
+<table>
+<thead>
+<tr>
+<th>param</th>
+<th>required</th>
+<th>type</th>
+<th>describe</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>formatStr</td>
+<td>false</td>
+<td>string</td>
+<td>不传默认格式{Y}-{MM}-{DD}</td>
+</tr>
+</tbody>
+</table>
+<p><strong>示例:</strong></p>
+<pre><code>console.log(time.getWeekCycle(&#39;{Y}-{MM}-{DD} {A} {t}:{ii}:{ss}&#39;)) // {firstDay: &quot;2020-05-31 上午 10:19:35&quot;, lastDay: &quot;2020-06-06 上午 10:19:35&quot;}
+// 不传
+console.log(time.getWeekCycle()) // {firstDay: &quot;2020-05-31&quot;, lastDay: &quot;2020-06-06&quot;}
+</code></pre><h3 id="isexist-">isExist()</h3>
+<p>判断某段时间是否存在</p>
+<p><strong>注：只能统一同一种类型，如number类型所有参数必须是number类型，结束时间必须比其实时间晚</strong></p>
+<table>
+<thead>
+<tr>
+<th>param</th>
+<th>required</th>
+<th>type</th>
+<th>describe</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>beginTime</td>
+<td>true</td>
+<td>number / string</td>
+<td>起始时间,可以为时间戳，时间字符格式，可传可不传，不传默认当天</td>
+</tr>
+<tr>
+<td>lastTime</td>
+<td>true</td>
+<td>number / string</td>
+<td>结束时间</td>
+</tr>
+<tr>
+<td>time</td>
+<td>true</td>
+<td>number / string</td>
+<td>需要判断的时间点</td>
+</tr>
+</tbody>
+</table>
+<p><strong>示例:</strong></p>
+<pre><code>// string类型
+console.log(&#39;是否是&#39;+ time.getTime(new Date().getTime(), true) +&#39;区间&#39; + time.isExist({
+lastTime: &#39;2020-07-01 15:36:47&#39;,
+time: &#39;2020-06-01 15:36:47&#39;
+})) // 是否是2020-06-03 上午 10:38区间false
+
+// number类型
+console.log(&#39;是否是&#39;+ new Date().getDay +&#39;区间&#39; + time.isExist({
+lastTime: 1587360400,
+time: 1589963293
+})) // 是否是2020-06-03 上午 10:56区间true
+</code></pre><h1 id="-">常用的工具函数模块</h1>
+<p>这是一个开发常用的工具函数库</p>
+<p><code>import { tools } from &#39;js-hodgepodge&#39;</code></p>
+<h3 id="api-">API介绍</h3>
+<h3 id="throttle-">throttle()</h3>
+<p>一个节流函数</p>
+<table>
+<thead>
+<tr>
+<th>param</th>
+<th>required</th>
+<th>type</th>
+<th>describe</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>func</td>
+<td>true</td>
+<td>function</td>
+<td>执行后的回调</td>
+</tr>
+<tr>
+<td>awai</td>
+<td>false</td>
+<td>number</td>
+<td>间距时间ms，不传默认200</td>
+</tr>
+</tbody>
+</table>
+<p><strong>示例:</strong></p>
+<pre><code>/* 向下滚动时，每隔350ms打印出 count count + 1  参数a 2  参数b 3 */
+let count = 0
+window.addEventListener(&#39;scroll&#39;, tools.throttle((a = 2, b = 3) =&gt; {
+console.log(&#39;count&#39; + count, &#39; 参数a &#39;+ 2 , &#39; 参数b &#39;+ 3)
+count += 1
+}, 350))
+</code></pre><h3 id="debounce-">debounce()</h3>
+<p>一个防抖函数</p>
+<table>
+<thead>
+<tr>
+<th>param</th>
+<th>required</th>
+<th>type</th>
+<th>describe</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>func</td>
+<td>true</td>
+<td>function</td>
+<td>执行后的回调</td>
+</tr>
+<tr>
+<td>awai</td>
+<td>false</td>
+<td>number</td>
+<td>间距时间ms，不传默认200</td>
+</tr>
+</tbody>
+</table>
+<p><strong>示例:</strong></p>
+<pre><code>/* 无间断点击时，会在350MS执行后执行最后一次点击 */
+document.querySelector(&#39;.btn&#39;).addEventListener(&#39;click&#39;, tools.debounce(() =&gt; {
+console.log(&#39;调用API&#39;)
+}, 350))
+</code></pre><h3 id="geturlkey-">getUrlKey()</h3>
+<p>获取当前路由参数上的地址</p>
+<table>
+<thead>
+<tr>
+<th>param</th>
+<th>required</th>
+<th>type</th>
+<th>describe</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>name</td>
+<td>true</td>
+<td>string</td>
+<td>地址上的参数值</td>
+</tr>
+</tbody>
+</table>
+<p><strong>示例:</strong></p>
+<pre><code>/* 假设当前网址为 &#39;http://127.0.0.1:8080/public/myBlog/bolgInfo?code=1321321321&#39; */
+
+create() {
+const code = tools.getUrlKey(&#39;code&#39;) // 1321321321
+}
+</code></pre><h3 id="isobjectlike-">isObjectLike()</h3>
+<p>断数据是不是Object类型的数据</p>
+<table>
+<thead>
+<tr>
+<th>param</th>
+<th>required</th>
+<th>type</th>
+<th>describe</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>val</td>
+<td>true</td>
+<td>any</td>
+<td>目标参数</td>
+</tr>
+</tbody>
+</table>
+<p><strong>示例:</strong></p>
+<pre><code>let obj = {}
+console.log(tools.isObjectLike(obj)) // true
+let obj = &#39;&#39;
+console.log(tools.isObjectLike(obj)) // false
+</code></pre><h3 id="cached-">cached()</h3>
+<p>记忆函数：缓存函数的运算结果</p>
+<table>
+<thead>
+<tr>
+<th>param</th>
+<th>required</th>
+<th>type</th>
+<th>describe</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>fn</td>
+<td>true</td>
+<td>function</td>
+<td>回调函数</td>
+</tr>
+</tbody>
+</table>
+<p><strong>示例:</strong></p>
+<pre><code>let count = 5
+document.querySelector(&#39;.btn&#39;).addEventListener(&#39;click&#39;, function () {
+tools.cached(res =&gt; {
+count += 5
+console.log(&#39;res&#39; + res) // 旧值 5
+console.log(&#39;count&#39; + count) // 新值 10
+})(count)
+})
+</code></pre><h3 id="capitalize-">capitalize()</h3>
+<p>把字符串首位转为大写</p>
+<table>
+<thead>
+<tr>
+<th>param</th>
+<th>required</th>
+<th>type</th>
+<th>describe</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>val</td>
+<td>true</td>
+<td>string</td>
+<td>目标参数</td>
+</tr>
+</tbody>
+</table>
+<p><strong>示例:</strong></p>
+<pre><code>console.log(tools.capitalize(&#39;abcd&#39;)) // Abcd
+</code></pre><h3 id="getexplorerinfo-">getExplorerInfo()</h3>
+<p>获取浏览器信息</p>
+<p><strong>示例:</strong></p>
+<pre><code>console.log(tools.getExplorerInfo()) // {type: &quot;Chrome&quot;, version: 78}
+</code></pre><h3 id="getexplorerinfo-">getExplorerInfo()</h3>
+<p>检测客户端是手机还是PC，true是PC， false 是手机端</p>
+<p><strong>示例:</strong></p>
+<pre><code>console.log(tools.Broswer()) // true
+</code></pre><h3 id="getrawtype-">getRawType()</h3>
+<p>获取数据类型</p>
+<table>
+<thead>
+<tr>
+<th>param</th>
+<th>required</th>
+<th>type</th>
+<th>describe</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>val</td>
+<td>true</td>
+<td>string</td>
+<td>目标参数</td>
+</tr>
+</tbody>
+</table>
+<p><strong>示例:</strong></p>
+<pre><code>console.log(tools.getRawType(123)) // Number
+</code></pre><h3 id="isstatic-">isStatic()</h3>
+<p>获取数据类型</p>
+<table>
+<thead>
+<tr>
+<th>param</th>
+<th>required</th>
+<th>type</th>
+<th>describe</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>val</td>
+<td>true</td>
+<td>string</td>
+<td>目标参数</td>
+</tr>
+</tbody>
+</table>
+<p><strong>示例:</strong></p>
+<pre><code>console.log(tools.isStatic(123)) // true
+</code></pre><h3 id="unique-">unique()</h3>
+<p>获取数据类型</p>
+<table>
+<thead>
+<tr>
+<th>param</th>
+<th>required</th>
+<th>type</th>
+<th>describe</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>arr</td>
+<td>true</td>
+<td>Array</td>
+<td>目标参数</td>
+</tr>
+</tbody>
+</table>
+<p><strong>示例:</strong></p>
+<pre><code>const a = [1, 1, 2]
+console.log(tools.unique(a)) // [1, 2]
+</code></pre><h3 id="disablecopyselection-">disableCopySelection()</h3>
+<p>禁用浏览器右键部分功能</p>
+<table>
+<thead>
+<tr>
+<th>param</th>
+<th>required</th>
+<th>type</th>
+<th>describe</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>type</td>
+<td>false</td>
+<td>&#39;all&#39;、&#39;contextmenu&#39;、&#39;selectstart&#39; 、&#39;copy&#39;</td>
+<td>类型（all：禁止右键，选择文本，contextmenu: 禁止右键 selectstart：禁止选择文本 copy: 禁止复制）（后续维护增加）</td>
+</tr>
+</tbody>
+</table>
+<p><strong>示例:</strong></p>
+<pre><code>console.log(tools.disableCopySelection())
+</code></pre><h3 id="viewwebpageperformance-">viewWebPagePerformance()</h3>
+<p>检查网页性能</p>
+<p><strong>示例:</strong></p>
+<pre><code>console.log(tools.disableCopySelection())
+/*DNS查询耗时 ：0ms
+index.ts:224 TCP链接耗时 ：0ms
+index.ts:225 request请求耗时 ：1ms
+index.ts:226 解析dom树耗时 ：562ms
+index.ts:227 白屏时间 ：310ms
+index.ts:228 domready时间 ：402ms
+index.ts:229 onload时间 ：964ms
+index.ts:233 js内存使用占比 ：89.72%
+client:52 [WDS] Live Reloading enabled.*/
+</code></pre><h1 id="-">正则校验模块</h1>
+<p>这是一个包含大部分常用的正则表达式库</p>
+<p><code>import { check } from &#39;js-hodgepodge&#39;</code></p>
+<h3 id="api-">API介绍</h3>
+<h3 id="intercheck-">interCheck()</h3>
+<p>检测电话号码是否正确</p>
+<p><strong>示例</strong></p>
+<pre><code>console.log(check.checkPhone(13428052268)) // true
+console.log(check.checkPhone(11111111111)) // false
+</code></pre><h3 id="checkemail-">checkEmail()</h3>
+<p><strong>示例</strong></p>
+<pre><code>console.log(check.checkEmail(&#39;272781702@qq.com&#39;)) // true
+console.log(check.checkEmail(1111)) // false
+</code></pre><h3 id="checkurl-">checkUrl()</h3>
+<p>检测url是否合法</p>
+<p><strong>示例</strong></p>
+<pre><code>console.log(check.checkUrl(&#39;http://www.baodu.com&#39;)) // true
+console.log(check.checkUrl(&#39;http:www.baodu.com&#39;)) // false
+</code></pre><h3 id="checkdomestictelephone-">checkDomesticTelephone()</h3>
+<p>国内座机号码</p>
+<p><strong>示例</strong></p>
+<pre><code>console.log(check.checkDomesticTelephone(&#39;0752-89915876&#39;)) // true
+console.log(check.checkDomesticTelephone(&#39;111111&#39;)) // false
+</code></pre><h3 id="checknotspecial-">checkNotSpecial()</h3>
+<p>必须包含大小写字母和数字的组合，不能使用特殊字符，长度在start-end之间</p>
+<table>
+<thead>
+<tr>
+<th>param</th>
+<th>required</th>
+<th>type</th>
+<th>describe</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>start</td>
+<td>true</td>
+<td>number</td>
+<td>起始长度</td>
+</tr>
+<tr>
+<td>end</td>
+<td>true</td>
+<td>number</td>
+<td>结束长度</td>
+</tr>
+<tr>
+<td>val</td>
+<td>true</td>
+<td>any</td>
+<td>需要判断的参数</td>
+</tr>
+</tbody>
+</table>
+<p><strong>示例</strong></p>
+<pre><code>console.log(check.checkNotSpecial({
+start: 8,
+end: 10,
+val: &#39;Ab12345678&#39;
+})) // true
+console.log(check.checkNotSpecial({
+start: 8,
+end: 10,
+val: &#39;A12345&#39;
+})) // false
+</code></pre><h3 id="checkpasswordspecification-">checkPasswordSpecification()</h3>
+<p>以字母开头，长度在start~end之间，只能包含字母、数字和下划线</p>
+<table>
+<thead>
+<tr>
+<th>param</th>
+<th>required</th>
+<th>type</th>
+<th>describe</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>start</td>
+<td>true</td>
+<td>number</td>
+<td>起始长度</td>
+</tr>
+<tr>
+<td>end</td>
+<td>true</td>
+<td>number</td>
+<td>结束长度</td>
+</tr>
+<tr>
+<td>val</td>
+<td>true</td>
+<td>any</td>
+<td>需要判断的参数</td>
+</tr>
+</tbody>
+</table>
+<p><strong>示例</strong></p>
+<pre><code>console.log(check.checkPasswordSpecification({
+start: 8,
+end: 10,
+val: &#39;Ab12345678&#39;
+})) // true
+console.log(check.checkPasswordSpecification({
+start: 8,
+end: 10,
+val: &#39;12345A&#39;
+})) // false
+</code></pre><h3 id="checknumberunderscoreletter-">checkNumberUnderscoreletter()</h3>
+<p>由数字、26个英文字母或者下划线组成的字符串</p>
+<p><strong>示例</strong></p>
+<pre><code>console.log(check.checkNumberUnderscoreletter(&#39;123A&#39;)) // true
+console.log(check.checkNumberUnderscoreletter(&#39;12~~&#39;)) // false
+</code></pre><h3 id="checkchinesenumberenglishunderline-">checkChineseNumberEnglishUnderline()</h3>
+<p>中文、英文、数字包括下划线</p>
+<p><strong>示例</strong></p>
+<pre><code>console.log(check.checkChineseNumberEnglishUnderline(&#39;我是_SHAN&#39;)) // true
+console.log(check.checkChineseNumberEnglishUnderline(&#39;我是~~~&#39;)) // false
+</code></pre><h3 id="checkspecialcharacters-">checkSpecialCharacters()</h3>
+<p>中文、英文、数字但不包括下划线等符号</p>
+<p><strong>示例</strong></p>
+<pre><code>console.log(check.checkSpecialCharacters(&#39;我是Shan&#39;)) // true
+console.log(check.checkSpecialCharacters(&#39;我是_SHAN&#39;)) // false
+</code></pre><h3 id="checkhtml-">checkHtml()</h3>
+<p>判断是否是html标签</p>
+<p><strong>示例</strong></p>
+<pre><code>console.log(check.checkHtml(&#39;&lt;body&gt;&lt;/body&gt;&#39;)) // true
+console.log(check.checkHtml(&#39;body /&gt;&#39;)) // false
+</code></pre><h3 id="checkdchinesecharacterdetection-">checkDChineseCharacterDetection()</h3>
+<p>判断是否是汉字</p>
+<p><strong>示例</strong></p>
+<pre><code>console.log(check.checkDChineseCharacterDetection(&#39;我是&#39;)) // true
+console.log(check.checkDChineseCharacterDetection(&#39;Shan&#39;)) // false
+</code></pre><h3 id="checkqq-">checkQQ()</h3>
+<p>判断是否是腾讯QQ号</p>
+<p><strong>示例</strong></p>
+<pre><code>console.log(check.checkQQ(100000)) // true
+console.log(check.checkQQ(10000000000000000000000)) // false
+</code></pre><h3 id="checkpostoffice-">checkPostOffice()</h3>
+<p>判断是否是中国邮政编码</p>
+<p><strong>示例</strong></p>
+<pre><code>console.log(check.checkPostOffice(516300)) // true
+console.log(check.checkPostOffice(10000000000000000000000)) // false
+</code></pre><h3 id="checkdateformat-">checkDateFormat()</h3>
+<p>判断是否是日期格式</p>
+<p><strong>示例</strong></p>
+<pre><code>console.log(check.checkDateFormat(&#39;2020-6-03&#39;)) // true
+console.log(check.checkDateFormat(&#39;http:www.baodu.com&#39;)) // false
+</code></pre><h3 id="checklowercase-">checkLowerCase()</h3>
+<p>判断是否是小写字母</p>
+<p><strong>示例</strong></p>
+<pre><code>console.log(check.checkLowerCase(&#39;abc&#39;)) // true
+console.log(check.checkLowerCase(&#39;ABC&#39;)) // false
+</code></pre><h3 id="checkuppercase-">checkUpperCase()</h3>
+<p>判断是否是小写字母</p>
+<p><strong>示例</strong></p>
+<pre><code>console.log(check.checkUpperCase(&#39;ABC&#39;)) // true
+console.log(check.checkUpperCase(&#39;abc&#39;)) //false
+</code></pre><h3 id="checkalphabets-">checkAlphabets()</h3>
+<p>判断是否是字母</p>
+<p><strong>示例</strong></p>
+<pre><code>console.log(check.checkAlphabets(&#39;ABCa&#39;)) // true
+console.log(check.checkAlphabets(&#39;abcA121&#39;)) //false
+</code></pre><h3 id="checkcid-">checkCID()</h3>
+<p>判断是否是字母</p>
+<p><strong>示例</strong></p>
+<pre><code>console.log(check.checkCID(110101199003077475)) // true
+console.log(check.checkCID(1101111111111111111111)) // false
+</code></pre><h3 id="checkstrcomposedofnumber-">checkStrComposedOfNumber()</h3>
+<p>验证字符串是否是数字</p>
+<p><strong>示例</strong></p>
+<pre><code>console.log(check.checkStrComposedOfNumber(&#39;11111&#39;)) // true
+console.log(check.checkStrComposedOfNumber(&#39;abc&#39;)) // false
+</code></pre><h3 id="checknumberlength-">checkNumberLength()</h3>
+<p>验证字符串是否是数字</p>
+<table>
+<thead>
+<tr>
+<th>param</th>
+<th>required</th>
+<th>type</th>
+<th>describe</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>length</td>
+<td>true</td>
+<td>number</td>
+<td>目标长度</td>
+</tr>
+<tr>
+<td>val</td>
+<td>true</td>
+<td>any</td>
+<td>需要判断的参数</td>
+</tr>
+</tbody>
+</table>
+<p><strong>示例</strong></p>
+<pre><code>console.log(check.checkNumberLength({
+length: 6,
+val: &#39;123456&#39;
+})) // true
+console.log(check.checkNumberLength({
+length: 5,
+val: &#39;12354666&#39;
+})) // false
+</code></pre><h3 id="checkappointlen-">checkAppointLen()</h3>
+<p>检测m-n位的数字</p>
+<table>
+<thead>
+<tr>
+<th>param</th>
+<th>required</th>
+<th>type</th>
+<th>describe</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>start</td>
+<td>true</td>
+<td>number</td>
+<td>目标长度起始长度</td>
+</tr>
+<tr>
+<td>end</td>
+<td>true</td>
+<td>number</td>
+<td>目标长度结束长度</td>
+</tr>
+<tr>
+<td>val</td>
+<td>true</td>
+<td>any</td>
+<td>需要判断的参数</td>
+</tr>
+</tbody>
+</table>
+<p><strong>示例</strong></p>
+<pre><code>console.log(check.checkAppointLen({
+start: 6,
+end: 8,
+val: &#39;123456&#39;
+})) // true
+console.log(check.checkAppointLen({start: 6,
+end: 8,
+val: &#39;1235466634214&#39;
+})) // false
+</code></pre><h3 id="checkzeroandnonzero-">checkZeroAndNonZero()</h3>
+<p>检测非零开头的数字</p>
+<p><strong>示例</strong></p>
+<pre><code>console.log(check.checkZeroAndNonZero(&#39;123245&#39;)) // true
+console.log(check.checkZeroAndNonZero(&#39;012345&#39;)) // false
+</code></pre><h3 id="checktwodecimalplaces-">checkTwoDecimalplaces()</h3>
+<p>非零开头的最多带两位小数的数字</p>
+<p><strong>示例</strong></p>
+<pre><code>console.log(check.checkTwoDecimalplaces(123245.00)) // true
+console.log(check.checkTwoDecimalplaces(&#39;012345&#39;)) // false
+</code></pre><h3 id="checkdecimalplaces-">checkDecimalplaces()</h3>
+<p>带1-2位小数的正数或负数</p>
+<p><strong>示例</strong></p>
+<pre><code>console.log(check.checkDecimalplaces(123245.12)) // true
+console.log(check.checkDecimalplaces(12323.123)) // false
+</code></pre><h3 id="checkpnd-">checkPND()</h3>
+<p>判断正数、负数、和小数</p>
+<p><strong>示例</strong></p>
+<pre><code>console.log(check.checkPND(123245)) // true
+console.log(check.checkPND(&#39;;asda&#39;)) // false
+</code></pre><h3 id="checkpositivetdp-">checkPositiveTDP()</h3>
+<p>有两位小数的正实数</p>
+<p><strong>示例</strong></p>
+<pre><code>console.log(check.checkPositiveTDP(123245.12)) // true
+console.log(check.checkPositiveTDP(-123.12)) // false
+</code></pre><h3 id="checkoandtpositive-">checkOandTPositive()</h3>
+<p>有1~3位小数的正实数</p>
+<p><strong>示例</strong></p>
+<pre><code>console.log(check.checkOandTPositive(123245.12)) // true
+console.log(check.checkOandTPositive(-123.12)) // false
+</code></pre><h3 id="checknonzeropositive-">checkNonzeroPositive()</h3>
+<p>非零的正整数</p>
+<p><strong>示例</strong></p>
+<pre><code>console.log(check.checkNonzeroPositive(123245)) // true
+console.log(check.checkNonzeroPositive(-123.12)) // false
+</code></pre><h3 id="checknotpositive-">checkNotPositive()</h3>
+<p>非正整数</p>
+<h3 id="checknotpositivefloat-">checkNotPositiveFloat()</h3>
+<p>非正浮点数</p>
+<h3 id="checkpositivefloat-">checkPositiveFloat()</h3>
+<p>正浮点数</p>
+<h3 id="checknonzeropositive-">checkNonzeroPositive()</h3>
+<p>非零的负整数</p>
+<p><strong>示例</strong></p>
+<pre><code>console.log(check.checkNonzeroNegative(-123245)) // true
+console.log(check.checkNonzeroNegative(123)) // false
+</code></pre><h3 id="checknotnegative-">checkNotNegative()</h3>
+<p>非负整数</p>
+<h3 id="checknotnegativefloat-">checkNotNegativeFloat()</h3>
+<p>非负浮点数</p>
+<h3 id="checknegativefloat-">checkNegativeFloat()</h3>
+<p>负浮点数</p>
+<h3 id="checkfloat-">checkFloat()</h3>
+<p>负浮点数</p>
+<h1 id="-">缓存模块</h1>
+<p>这是一个包含大部分常用的正则表达式库</p>
+<p><code>import { cache } from &#39;js-hodgepodge&#39;</code></p>
+<h3 id="api-">API介绍</h3>
+<h3 id="setlocalstorage-">setLocalStorage()</h3>
+<p>存入storage缓存，让storage有时间概念</p>
+<table>
+<thead>
+<tr>
+<th>param</th>
+<th>required</th>
+<th>type</th>
+<th>describe</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>key</td>
+<td>true</td>
+<td>number</td>
+<td>键值</td>
+</tr>
+<tr>
+<td>value</td>
+<td>true</td>
+<td>any</td>
+<td>值</td>
+</tr>
+<tr>
+<td>distance</td>
+<td>true</td>
+<td>number</td>
+<td>时间间距，存多久</td>
+</tr>
+</tbody>
+</table>
+<pre><code>setLocalStorage(&#39;down&#39;, 60, 24*60*60*1000)
+</code></pre><h3 id="getlocalstorage-">getLocalStorage()</h3>
+<p>取出缓存</p>
+<table>
+<thead>
+<tr>
+<th>param</th>
+<th>required</th>
+<th>type</th>
+<th>describe</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>key</td>
+<td>true</td>
+<td>number</td>
+<td>键值</td>
+</tr>
+</tbody>
+</table>
+<pre><code>setLocalStorage(&#39;down&#39;) // 60
+</code></pre><h3 id="removelocalstorage-">removeLocalStorage()</h3>
+<p>删除storage缓存</p>
+<table>
+<thead>
+<tr>
+<th>param</th>
+<th>required</th>
+<th>type</th>
+<th>describe</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>key</td>
+<td>true</td>
+<td>number</td>
+<td>键值</td>
+</tr>
+</tbody>
+</table>
+<pre><code>removeLocalStorage(&#39;down&#39;)
+</code></pre><h3 id="-">未完待续。。。。</h3>
+
+          	</article>
+        </div>
+		</div>
+  </body>
+</html>
+<script src="https://cdn.bootcdn.net/ajax/libs/jquery/1.4.4/jquery.min.js"></script>
+<script src="https://cdn.bootcdn.net/ajax/libs/zTree.v3/3.5.01/js/jquery.ztree.all.min.js"></script>
+<script type="text/javascript" src="toc/js/ztree_toc.js"></script>
+<script type="text/javascript" src="toc_conf.js"></script>
+
+<SCRIPT type="text/javascript" >
+<!--
+$(document).ready(function(){
+    var css_conf = eval(markdown_panel_style);
+    $('#readme').css(css_conf)
+
+    var conf = eval(jquery_ztree_toc_opts);
+		$('#tree').ztree_toc(conf);
+});
+//-->
+</SCRIPT>
