@@ -31,17 +31,12 @@
             <el-tab-pane label="好友博客互留" name="2">
               <p class="noting f1 dispaly-content-center">暂无数据......</p>
             </el-tab-pane>
-            <!--            <el-tab-pane label="角色管理" name="3">-->
-            <!--            </el-tab-pane>-->
-            <!--            <el-tab-pane label="定时任务补偿" name="4">-->
-            <!--              -->
-            <!--            </el-tab-pane>-->
           </el-tabs>
 
         </div>
       </div>
       <div class="right">
-        <Right />
+        <blogShortcutBar />
       </div>
     </div>
 
@@ -49,12 +44,12 @@
 </template>
 
 <script>
-import Right from '../../components/right/right'
+import blogShortcutBar from '@/components/blogShortcutBar/blogShortcutBar'
 import SkillDetails from '../../components/AboutMe/SkillDetails'
 export default {
   name: 'AboutMe',
   components: {
-    Right,
+    blogShortcutBar,
     SkillDetails
   },
   data() {

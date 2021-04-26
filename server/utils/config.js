@@ -14,6 +14,8 @@ module.exports = {
   IMAGE_PATH: './public/images',
   FAVORITES_PATH: './public/uploads',
   TIAN_API_PATH: 'http://api.tianapi.com/it/index',
+  BOOK_IMG_PATH: './public/bookImg',
+  BOOL_PATH: './public/book',
   TIAN_API_KEY: '14ec84bf63d64c075e4d1744dc4110ac',
   MAIL_USER: '272781702@qq.com',
   MAIL_KEY: 'bnyrpbpubydicbbh',

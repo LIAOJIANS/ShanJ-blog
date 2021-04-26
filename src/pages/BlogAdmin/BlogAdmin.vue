@@ -30,7 +30,11 @@
             <i class="el-icon-user-solid" />
             <span slot="title">用户管理</span>
           </el-menu-item>
-          <el-menu-item index="4" disabled>
+          <el-menu-item index="4" @click="$router.replace('/blogAdmin/bookManagement')">
+            <i class="el-icon-reading" />
+            <span slot="title">图书管理</span>
+          </el-menu-item>
+          <el-menu-item index="5" disabled>
             <i class="el-icon-setting" />
             <span slot="title">待开发</span>
           </el-menu-item>
@@ -125,7 +129,8 @@ export default {
   }
 
   .admin-fun {
-    background-color: #f0f2f5;
+    height: 100%;
+
   }
 
   .admin-fun-left {
@@ -166,13 +171,17 @@ export default {
   }
 
   .admin-fun-right {
-    padding-left: 180px;
-    padding-top: 60px;
+    padding: 60px 0 1px 180px;
+    background-color: #f0f2f5;
 
     .body {
       margin: 20px;
       padding: 10px;
+      min-height: calc(100vh - 101px);
+
       background-color: #fff;
+      border-radius: 5px;
+
     }
   }
 </style>

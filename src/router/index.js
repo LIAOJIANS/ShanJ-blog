@@ -30,8 +30,11 @@ export default new Router({
       {
         path: '/blogAdmin/userListManagement',
         component: _import('BlogAdmin/components/UserListManagement')
-      }
-      ]
+      },
+      {
+        path: '/blogAdmin/bookManagement',
+        component: _import('BlogAdmin/components/bookManagement')
+      }]
     },
     {
       path: '*',

@@ -28,6 +28,11 @@ class File {
   unlink(path, cb) {
     fs.unlink(path, cb)
   }
+
+  writeFile(options) {
+    const { filename, data, option = {}, cb } = options
+    fs.writeFile(filename, data, option, cb)
+  }
 }
 
 module.exports = File

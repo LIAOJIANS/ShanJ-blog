@@ -8,7 +8,7 @@ const { COLLECT_PATH } = require('../utils/config')
 const { errorChecking } = require('../utils')
 const { DatabaseOperation, Result, BlogHandle, File } = require('../controller')
 
-// 上传博客
+// 上传博客 => 上传现成MD文件
 router.post('/uploadBold', multer({ storage: multer.diskStorage({ destination: (req, file, cb) => {
   cb(null, `${COLLECT_PATH}`)
 }, filename: (req, file, cb) => {
@@ -48,6 +48,54 @@ router.post('/uploadBold', multer({ storage: multer.diskStorage({ destination: (
   } catch(e) {
     new Result('未知错误').success(res)
   }
+})
+
+// 上传博客-> 写入MD文件
+router.post('/publishBlog', [
+  body('mdContent').isLength({ min: 0 }).withMessage('发布内容不能为空'),
+  body('fz').isLength({ min: 0 }).withMessage('当前分组不能为空'),
+  body('blogTitle').isLength({ min: 0 }).withMessage('博客名称不能为空'),
+], (req, res, next) => {
+  errorChecking(req, next, async () => {
+    const { mdContent, fz, blogTitle } = req.body
+    const blogLookNumber = 0,
+        blogDNumber = 0
+    const blogUrl = `${ COLLECT_PATH }${ fz ? '/' + fz : '' }/${ blogTitle }.md`
+    new File().writeFile({
+      filename: blogUrl,
+      data: mdContent,
+      cb: err => !err && new Result(fz ? `上传成功，已上传至${fz}分组` : '已上传至无分组').success(res)
+    })
+
+    new DatabaseOperation(Blog, res).save({
+      blogTitle: blogTitle,
+      blogLookNumber,
+      blogDNumber,
+      fzName: fz || '全部',
+      currentTime: time.dateFormat({ time: new Date().getTime()}),
+      content: await new BlogHandle().getBlogContent(blogUrl, blogTitle),
+      blogUrl
+    })
+  })
+})
+
+// 写入MD，校验博客标题唯一性
+router.post('/check_blog_unique', [
+  body('blogTitle').isLength({ min: 0 }).withMessage('博客名称不能为空')
+], (req, res, next) => {
+  errorChecking(req, next, () => {
+    const { blogTitle } = req.body
+
+    if(!blogTitle) {
+      return  new Result('博客名不能为空').fail(res)
+    }
+
+    new DatabaseOperation(Blog, res).find({}, { isPaging: true }).then(list => {
+      list.some(c => c.blogTitle === blogTitle) ?
+       new Result('博客名已存在').fail(res) : 
+       new Result().success(res)
+    })
+  })
 })
 
 // 获取所有博客
@@ -179,7 +227,7 @@ router.post('/blogD', [
           return new Result('已经点过赞！').fail(res)
         }
         await new DatabaseOperation(Blog, res).findByIdAndUpdate({ _id: info._id }, { blogDNumber: info.blogDNumber + 1 })
-        new BlogHandle().details(userId, id, info.blogTitle, res)
+          new BlogHandle().details(userId, id, info.blogTitle, res)
       })
     })
   })

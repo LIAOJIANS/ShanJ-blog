@@ -97,7 +97,7 @@ router.post('/register',
     new DatabaseOperation(User, res).findOne({ username }).then(data => {
       data ? new Result(data, '此用户已注册').fail(res) 
       : new DatabaseOperation(User, res).save({ username, password: md5(password), countIp: 0, isZan: false, jurisdiction: 1 }).then(data => {
-        new UserHandle().handleJwt(username, data.jurisdiction, res, 'register')
+        new UserHandle().handleJwt(data, data.jurisdiction, res, 'register')
       })
       
     })

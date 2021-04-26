@@ -1,11 +1,13 @@
 const express = require('express');
 const router = express.Router();
 const multer = require('multer')
-const { Carousel } = require('../db')
+const { Carousel, Books, BookCollection, BookType } = require('../db')
 const { body } = require('express-validator')
-const { IMAGE_PATH, UPLOAD_URL } = require('../utils/config')
+const { IMAGE_PATH, UPLOAD_URL, BOOK_IMG_PATH, BOOL_PATH } = require('../utils/config')
 const { errorChecking } = require('../utils')
 const { BlogHandle, Result, DatabaseOperation, File, Admin } = require('../controller')
+const { decoded } = require('../utils/user')
+const { time } = require('js-hodgepodge');
 
 router.post('/delBolg',
   [ 
@@ -97,6 +99,108 @@ router.post('/updataLunBo',
    })
 })
 
+// 上传书籍封面图
+router.post('/upload_book_img',
+  multer({ storage: multer.diskStorage({ destination: (req, file, cb) => {
+    cb(null, `${BOOK_IMG_PATH}`)
+  }, filename: (req, file, cb) => {
+    cb(null, file.originalname)
+  } }) }).single('file'), (req, res) => {
+    req.file ? new Result({ imgUrl: UPLOAD_URL + req.file.path }, '上传成功').success(res) : new Result('上传失败').fail(res)
+})
+
+// 上传书籍
+router.post('/upload_book',
+  multer({ storage: multer.diskStorage({ destination: (req, file, cb) => {
+    cb(null, `${BOOL_PATH}`)
+  }, filename: (req, file, cb) => {
+    cb(null, file.originalname)
+  }}) }).single('file'), (req, res) => {
+    req.file ? new Result({ bookUrl: UPLOAD_URL + req.file.path }, '上传成功').success(res) : new Result('上传失败').fail(res)
+})
+
+// 检查分类名称是否存在
+router.post('/book_type_check', [
+  body('book_type_name').isLength({ min: 0 }).withMessage('分类名称不能为空'),
+], (req, res, next) => {
+  errorChecking(req, next, () => {
+    new DatabaseOperation(BookType, res).findOne({ book_type_name: req.body.book_type_name }).then(data => {
+      data ? new Result('分类名称已存在').fail(res) : new Result().success(res)
+    })
+  })
+})
+
+// 创建分类名称
+router.post('/create_book_type', [
+  body('book_type_name').isLength({ min: 0 }).withMessage('分类名称不能为空'),
+], (req, res, next) => {
+  errorChecking(req, next, () => {
+    new DatabaseOperation(BookType, res).save({ book_type_name: req.body.book_type_name }).then(() => new Result('创建成功').success(res))
+  })
+})
+
+// 查询分类名称列表
+router.get('/get_book_type', (req, res, next) => {
+  new DatabaseOperation(BookType, res).find({}, { isPaging: true }).then(data => new Result(data).success(res))
+})
+
+// 新增书籍
+router.post('/create_book', [
+  body('book_name').isLength({ min: 0 }).withMessage('书籍名称不能为空'),
+  body('book_type').isLength({ min: 0 }).withMessage('分类名称不能为空'),
+  body('book_image_url').isLength({ min: 0 }).withMessage('封面地址不能为空'),
+  body('book_url').isLength({ min: 0 }).withMessage('书籍地址不能为空')
+], (req, res, next) => {
+  errorChecking(req, next, () => {
+    const {
+      book_name,
+      book_type,
+      book_image_url,
+      book_url,
+      _id
+    } = req.body
+    if(!_id) {
+      new DatabaseOperation(Books, res).save({
+        book_name,
+        book_type,
+        book_image_url,
+        book_url,
+        book_publisher_username: decoded(req).username,
+        book_dow_num: 0,
+        book_collection_num: 0,
+        book_publisher_time: time.dateFormat({time: new Date().getTime()})
+      }).then(data => new Result(data).success(res))
+    } else {
+      new DatabaseOperation(Books, res)
+        .findOne({ _id })
+        .then(info => new DatabaseOperation(Books, res)
+          .findByIdAndUpdate({ _id }, { 
+            ...JSON.parse(JSON.stringify(info)), 
+            book_name,
+            book_type,
+            book_image_url,
+            book_url
+          })
+          .then(data =>{
+            new Result(data).success(res)
+          })
+        )
+    }
+
+  })
+})
+
+router.get('/get_book_list', (req, res, next) => {
+  new DatabaseOperation(Books, res).find({}, { isPaging: true }).then(data => new Result(data).success(res))
+})
+
+router.get('/select_book', (req, res, next) => {
+  new DatabaseOperation(Books, res).findOne({ _id: req.query.id }).then(info => new Result(info).success(res))
+})
+
+router.get('/del_book', (req, res, next) => {
+  new DatabaseOperation(Books, res).remove({ _id: req.query.id }).then(info => new Result(info).success(res))
+})
 
 router.post('/delLunBo', 
   [ 

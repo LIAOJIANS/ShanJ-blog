@@ -95,3 +95,20 @@ export function getBlogLikeList(userId) {
   })
 }
 
+export function checkBlogUnique(blogTitle) {
+  return request({
+    url: '/api/blog/check_blog_unique',
+    method: 'post',
+    data: {
+      blogTitle
+    }
+  })
+}
+
+export function publishBlog(options) {
+  return request({
+    url: '/api/blog/publishBlog',
+    method: 'post',
+    data: options
+  })
+}

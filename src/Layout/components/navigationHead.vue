@@ -121,7 +121,6 @@ export default {
   },
 
   created() {
-    console.log(routes)
     this.activeIndex2 = this.$route.path
     if (this.activeIndex2 === '/publishBlog') {
       this.activeIndex2 = '/blog'
@@ -153,7 +152,7 @@ export default {
   top: 0;
   right: 0;
   left: 0;
-  z-index: 10;
+  z-index: 999;
   .menu {
     max-width: 1200px;
     min-width: 1200px;

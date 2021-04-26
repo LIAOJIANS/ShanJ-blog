@@ -5,5 +5,8 @@ module.exports = {
   FeedbackWall: require('./feedbackWall'),
   Like: require('./like'),
   User: require('./user'),
-  Visits: require('./visits')
+  Visits: require('./visits'),
+  Books: require('./books'),
+  BookCollection: require('./book_collection'),
+  BookType: require('./book_type')
 }

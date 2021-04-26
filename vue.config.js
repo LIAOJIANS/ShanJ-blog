@@ -6,7 +6,7 @@ module.exports = {
         target: process.env.VUE_APP_API,
         changeOrigin: true,
         pathRewrite: {
-          '^/api': '/'
+          '^/api': `${process.env.NODE_ENV === 'development' ? '/api' : '/'}`
         }
       }
     }

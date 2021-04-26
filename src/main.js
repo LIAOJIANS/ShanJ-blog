@@ -16,6 +16,8 @@ import locale from 'element-ui/lib/locale/lang/en'
 import './routeGuard'
 import '@/utils/mask'
 
+console.log(process.env)
+
 Vue.use(ElementUI, {
   locale
 })
