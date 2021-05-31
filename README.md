@@ -35,7 +35,8 @@ npm start
 
 草鸡管理源可以进入管理后台进行查看博客数据
 
-![image.png](https://p6-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/59d716099ab943eaa597c06d627ec560~tplv-k3u1fbpfcp-watermark.image)
+![image](https://user-images.githubusercontent.com/45313541/120151498-e616e680-c21e-11eb-8b73-c03710734078.png)
 
 管理界面
-![image.png](https://p6-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/717b3a5be1c344b3b4ecc14eff9a7029~tplv-k3u1fbpfcp-watermark.image)
+![image](https://user-images.githubusercontent.com/45313541/120151469-deefd880-c21e-11eb-9062-6f68e2ef25f3.png)
+
