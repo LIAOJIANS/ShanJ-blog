@@ -1,4 +1,4 @@
-const {  GET_GIT_ACCESS_TOKEN_URL, PRIVATE_KEY, JWT_EXPIRED } = require('../utils/config')
+const { GET_GIT_ACCESS_TOKEN_URL, PRIVATE_KEY, JWT_EXPIRED } = require('../utils/config')
 const Result = require('./Result')
 const jwt = require('jsonwebtoken')
 const fetch = require('node-fetch')
@@ -27,7 +27,7 @@ class User {
   }
 
   async getGitAccessToken(params) {
-   await fetch(GET_GIT_ACCESS_TOKEN_URL, {
+    await fetch(GET_GIT_ACCESS_TOKEN_URL, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
@@ -35,9 +35,9 @@ class User {
       body: JSON.stringify(params)
     }).then(res => {
       return res.text()
-    }).then( body => {
+    }).then(body => {
       const args = body.split('&')
-      let arg = args[0].split('=')
+      const arg = args[0].split('=')
       const access_token = arg[1]
       return access_token
     })
@@ -45,7 +45,7 @@ class User {
 
   handleJwt(username, jurisdiction, res, type = 'login') {
     const token = jwt.sign(
-      { username, jurisdiction: jurisdiction  },
+      { username, jurisdiction: jurisdiction },
       PRIVATE_KEY,
       { expiresIn: JWT_EXPIRED }
     )
