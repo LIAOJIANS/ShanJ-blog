@@ -117,3 +117,9 @@ export function delBook(_id) {
     url: `/api/admin/del_book/?id=${_id}`
   })
 }
+
+export function getUserList() {
+  return request({
+    url: '/api/admin/get_user_list'
+  })
+}

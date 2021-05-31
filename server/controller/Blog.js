@@ -49,7 +49,7 @@ class BlogHandle extends File {
 
   getBoldList(path, callback = null) {
     this.recursiveBlogList(path, '', true, this.readStream, data => { // 拿到递归数据返回给前端
-      callback?.(resultData)
+      callback(resultData)
     })
   }
 
@@ -109,7 +109,7 @@ class BlogHandle extends File {
         callback && callback('文件不存在')
       } else {
         const htmlStr = marked(data.toString())
-        callback?.({
+        callback({
           htmlStr,
           blogTitle,
           fzName,
@@ -214,7 +214,7 @@ class BlogHandle extends File {
         item === `${ bolgTitle }.md` && this.unlink(path + '/' + item,  error => {
           new DatabaseOperation(Blog).findOne({ blogTitle: bolgTitle }).then(async info => {
             await new DatabaseOperation(Blog).remove({ _id: info._id })
-            callback?.()
+            callback()
           })
         })
       }

@@ -143,6 +143,9 @@ export default {
       this.$loadShow()
       gitHubLogin(client_id, client_secret, this.gitHubCode).then(res => {
         // 发送请求GitHub用户信息
+        this.replaceData()
+        messages('登录成功！')
+        this.$store.dispatch('isLogin', res.data.token)
         this.$store.dispatch('adminUserInfo')
         this.$close()
       }).catch(() => this.$close())

@@ -1,28 +1,28 @@
-//引入模块
-const nodemailer = require("nodemailer");
+// 引入模块
+const nodemailer = require('nodemailer')
 
-//新建对象
-let obj = {
-    transporter: nodemailer.createTransport({
-        // 163邮箱 为smtp.163.com
-        host: "smtp.qq.com", // 运营商 qq邮箱 网易//
-        port: 465,
-        auth: {
-            user: "272781702@qq.com", //发送方的邮箱
-            pass: "bnyrpbpubydicbbh" // pop3 授权码
-        }
-    }),
+// 新建对象
+const obj = {
+  transporter: nodemailer.createTransport({
+    // 163邮箱 为smtp.163.com
+    host: 'smtp.qq.com', // 运营商 qq邮箱 网易//
+    port: 465,
+    auth: {
+      user: '272781702@qq.com', // 发送方的邮箱
+      pass: 'rxnjazwslqdkbgei' // pop3 授权码
+    }
+  }),
 
-        //传参（对方的mail地址,内容）
-    send: function(mail, content) {
-        console.log(mail)
-        const mailOptions = {
-            //发送方的邮箱地址
-            from: 'ShanJ博客注册验证码<272781702@qq.com>',
-            to: mail,
-            subject: '激活验证码',
-            text: `您的注册验证码为：${ content }, 24小时内有效，请谨慎保管`,
-            html: `
+  // 传参（对方的mail地址,内容）
+  send: function(mail, content) {
+    console.log(mail)
+    const mailOptions = {
+      // 发送方的邮箱地址
+      from: 'ShanJ博客注册验证码<272781702@qq.com>',
+      to: mail,
+      subject: '激活验证码',
+      text: `您的注册验证码为：${content}, 24小时内有效，请谨慎保管`,
+      html: `
             <head>
             <base target="_blank" />
             <style type="text/css">::-webkit-scrollbar{ display: none; }</style>
@@ -52,7 +52,7 @@ let obj = {
                             <div style="line-height:1.5;font-size:14px;margin-bottom:25px;color:#4d4d4d;">
                                 <strong style="display:block;margin-bottom:15px;">尊敬的用户：<span style="color:#f60;font-size: 16px;"></span>您好！</strong>
                                 <strong style="display:block;margin-bottom:15px;">
-                                    您正在进行<span style="color: red">ShanJ博客注册</span>操作，请在验证码输入框中输入：<span style="color:#f60;font-size: 24px">${ content }</span>，以完成操作。
+                                    您正在进行<span style="color: red">ShanJ博客注册</span>操作，请在验证码输入框中输入：<span style="color:#f60;font-size: 24px">${content}</span>，以完成操作。
                                 </strong>
                             </div>
                             <div style="margin-bottom:30px;">
@@ -78,16 +78,16 @@ let obj = {
             </table>
             </body>
         `
-        }
-        this.transporter.sendMail(mailOptions, (error, info) => {
-            if (error) {
-                return console.log(error);
-            }
-            console.log("Message sent: %s", info.messageId);
-        });
     }
-};
+    this.transporter.sendMail(mailOptions, (error, info) => {
+      if (error) {
+        return console.log(error)
+      }
+      console.log('Message sent: %s', info.messageId)
+    })
+  }
+}
 
-//抛出对象以接收
+// 抛出对象以接收
 
-module.exports = obj;
+module.exports = obj

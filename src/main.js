@@ -22,8 +22,6 @@ Vue.use(ElementUI, {
   locale
 })
 
-Vue.use(router)
-
 new Vue({
   el: '#app',
   render: h => h(App),

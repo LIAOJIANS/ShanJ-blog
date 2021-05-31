@@ -1,6 +1,7 @@
 const {  GET_GIT_ACCESS_TOKEN_URL, PRIVATE_KEY, JWT_EXPIRED } = require('../utils/config')
 const Result = require('./Result')
 const jwt = require('jsonwebtoken')
+const fetch = require('node-fetch')
 
 class User {
   constructor(jurisdiction = 0) {

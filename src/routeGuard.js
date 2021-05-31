@@ -16,10 +16,14 @@ NProgress.configure({
 const blackList = ['/publishBlog', '/blogAdmin/blogManagement', '/blogAdmin', '/blogAdmin/carouselManagement']
 router.beforeEach(async(to, from, next) => {
   const isBlack = blackList.some(url => url === to.path)
+
+  !blackList.includes(to.path) && document.body.clientWidth < 720 && (
+    window.location = 'http://blogmin.liaojs.cn'
+  )
   NProgress.start()
   if (!getToken()) {
     if (isBlack) { // 如果不存在管理用户token则跳回入口页
-      next(from.path)
+      blackList.includes(from.path) ? next('/home') : next(from.path)
     } else {
       next()
     }

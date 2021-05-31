@@ -3,6 +3,7 @@
     :title="bookId ? '编辑书籍' : '新增书籍'"
     :visible.sync="bookFormVisible"
     width="650px"
+    :before-close="closeDialog"
   >
     <el-form
       ref="formData"

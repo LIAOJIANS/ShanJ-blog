@@ -5,7 +5,7 @@ class File {
   constructor() {}
   fileRename(fromPath, toPath, cb = null) { // 剪切
     fs.rename(`${COLLECT_PATH}/${fromPath}`, `${COLLECT_PATH}/${toPath}`,  (err) => {
-      cb?.(err)
+      cb(err)
     })
   }
 

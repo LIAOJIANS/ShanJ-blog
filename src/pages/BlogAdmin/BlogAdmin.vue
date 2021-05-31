@@ -12,32 +12,23 @@
       <div class="admin-fun-left">
         <img src="http://www.liaojs.cn:3000/public/assets/login.png" alt="">
         <el-menu
-          default-active="1"
+          :default-active="activeIndex"
           class="el-menu-vertical-demo"
           background-color="#545c64"
           text-color="#fff"
           active-text-color="#ffd04b"
+          @select="handleSelect"
         >
-          <el-menu-item index="1" @click="$router.replace('/blogAdmin/blogManagement')">
-            <i class="el-icon-platform-eleme" />
-            <span slot="title">博客管理</span>
+          <el-menu-item
+            v-for="(r, i) in routerList"
+            :key="i"
+            :index="i.toString()"
+            @click="$router.replace(`${ r.path }`)"
+          >
+            <i :class="r.icon" />
+            <span slot="title">{{ r.title }}</span>
           </el-menu-item>
-          <el-menu-item index="2" @click="$router.replace('/blogAdmin/carouselManagement')">
-            <i class="el-icon-menu" />
-            <span slot="title">轮播图管理</span>
-          </el-menu-item>
-          <el-menu-item index="3" @click="$router.replace('/blogAdmin/userListManagement')">
-            <i class="el-icon-user-solid" />
-            <span slot="title">用户管理</span>
-          </el-menu-item>
-          <el-menu-item index="4" @click="$router.replace('/blogAdmin/bookManagement')">
-            <i class="el-icon-reading" />
-            <span slot="title">图书管理</span>
-          </el-menu-item>
-          <el-menu-item index="5" disabled>
-            <i class="el-icon-setting" />
-            <span slot="title">待开发</span>
-          </el-menu-item>
+
         </el-menu>
       </div>
       <div class="admin-fun-top dispaly-flex">
@@ -63,12 +54,15 @@
 
 <script>
 import { mapState } from 'vuex'
+import routerList from './model/routerViex'
 
 export default {
   name: 'BlogAdmin',
   data() {
     return {
-      show: false
+      show: false,
+      activeIndex: '0',
+      routerList
     }
   },
 
@@ -84,9 +78,21 @@ export default {
     _adminCheck() {
       const timerId = setTimeout(() => {
         this.show = false
-        this.$router.replace('/blogAdmin/blogManagement')
+        const path = this.$route.path
+
+        this.activeIndex = this.routerList.findIndex(r => r.path === path).toString()
+
+        if (path === '/blogAdmin') {
+          this.$router.replace('/blogAdmin/blogManagement')
+          this.activeIndex = '0'
+        }
+
         clearTimeout(timerId)
       }, 1500)
+    },
+
+    handleSelect(e) {
+      this.activeIndex = e
     }
   }
 }

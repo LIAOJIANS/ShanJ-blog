@@ -9,7 +9,7 @@ const user = mongoose.Schema({
   avatar_url: {type: String},
   username: {type: String, require: true},
   password: {type: String, require: true},
-  countIp: {type: Number},
+  countIp: {type: String},
   isZan: {type: Boolean},
   jurisdiction: { type: Number, require: true }
 })
