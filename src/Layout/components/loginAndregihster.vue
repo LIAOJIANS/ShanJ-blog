@@ -138,8 +138,8 @@ export default {
     },
 
     gitHubLogin() {
-      const client_id = 'Iv1.61e6f59c8fc30634' // id值
-      const client_secret = '821a18bac0ea7ef79185896efa3478ef3c1882b8'
+      const client_id = '你的凭证' // id值
+      const client_secret = '你的凭证'
       this.$loadShow()
       gitHubLogin(client_id, client_secret, this.gitHubCode).then(res => {
         // 发送请求GitHub用户信息
