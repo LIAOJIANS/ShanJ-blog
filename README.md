@@ -1,4 +1,6 @@
 
+### 在线预览地址：[http://blog.liaojs.cn/](http://blog.liaojs.cn/)
+
 ### 安装
 
 ```
